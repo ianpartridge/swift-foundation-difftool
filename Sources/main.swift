@@ -1,5 +1,6 @@
 import CommandLineKit
 import Darwin
+import Foundation
 
 let cli = CommandLineKit.CommandLine()
 
@@ -30,5 +31,20 @@ if clone.value {
     print("Error cloning https://github.com/apple/swift-corelibs-foundation")
     exit(EX_IOERR)
   }
+
+  exit(EX_OK)
+}
+
+let fileManager = FileManager.default
+var isDirectory: ObjCBool = false
+var path = fileManager.currentDirectoryPath + "/swift"
+if !fileManager.fileExists(atPath: path, isDirectory: &isDirectory) || !isDirectory.boolValue {
+  print("Directory not found: " + path)
+  exit(EX_IOERR)
+}
+path = fileManager.currentDirectoryPath + "/swift-corelibs-foundation"
+if !fileManager.fileExists(atPath: path, isDirectory: &isDirectory) || !isDirectory.boolValue {
+  print("Directory not found: " + path)
+  exit(EX_IOERR)
 }
 
