@@ -1,0 +1,12 @@
+{
+  "autoPin": true,
+  "pins": [
+    {
+      "package": "CommandLine",
+      "reason": null,
+      "repositoryURL": "https://github.com/ianpartridge/CommandLine",
+      "version": "3.0.0"
+    }
+  ],
+  "version": 1
+}
