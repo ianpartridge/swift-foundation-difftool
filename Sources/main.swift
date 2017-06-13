@@ -35,16 +35,21 @@ if clone.value {
   exit(EX_OK)
 }
 
-let fileManager = FileManager.default
-var isDirectory: ObjCBool = false
-var path = fileManager.currentDirectoryPath + "/swift"
-if !fileManager.fileExists(atPath: path, isDirectory: &isDirectory) || !isDirectory.boolValue {
-  print("Directory not found: " + path)
-  exit(EX_IOERR)
+func directoriesExist(_ directories: [String]) -> Bool {
+  let fileManager = FileManager.default
+
+  for directory in directories {
+    var isDirectory: ObjCBool = false
+    let path = fileManager.currentDirectoryPath + "/" + directory
+    if !fileManager.fileExists(atPath: path, isDirectory: &isDirectory) || !isDirectory.boolValue {
+      print("Directory not found: " + path)
+      return false
+    }
+  }
+  return true
 }
-path = fileManager.currentDirectoryPath + "/swift-corelibs-foundation"
-if !fileManager.fileExists(atPath: path, isDirectory: &isDirectory) || !isDirectory.boolValue {
-  print("Directory not found: " + path)
+
+if !directoriesExist(["swift", "swift-corelibs-foundation"]) {
   exit(EX_IOERR)
 }
 
